@@ -5,12 +5,6 @@ import re
 import pickle
 from PIL import Image
 from joblib import load
-import os
-
-
-st.write("Current working directory:", os.getcwd())
-st.write("Files in cwd:", os.listdir("app1"))
-
 
 # --- Constants ---
 class_order = ['LMP1-H', 'LMP1-L', 'LMP1', 'HYPERCAR', 'LMP2', 'INNOVATIVE CAR', 'LMGTE Pro', 'LMGTE Am', 'CDNT']
