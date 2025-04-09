@@ -99,7 +99,7 @@ if st.button("Run Classification"):
 
 
     # Load model and predict
-    model = load("app2.RandomForestClassifier.pkl")
+    model = load("app2/RandomForestClassifier.pkl")
     pred_class = model.predict(scaled_df)
     print(pred_class)
     # Show result
