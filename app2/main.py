@@ -105,3 +105,27 @@ if st.button("Run Classification"):
     # Show result
     st.subheader("🏁 Predicted Car Class")
     st.success(f"{pred_class}")
+
+
+# --- Visualization ---
+st.title("Data Visualization from Dataset")
+
+st.subheader("Dataset Insights")
+img1, img2 = st.columns(2)
+with img1:
+    st.image(Image.open("graphs/brfore_Undersample_class.png"), use_container_width=True, caption="Class Distribution before Undersampling")
+with img2:
+    st.image(Image.open("graphs/class_distribution.png"), use_container_width=True, caption="Class Distribution After Undersampling")
+
+img3, img4 = st.columns(2)
+with img3:
+    st.image(Image.open("graphs/CMD.png"), use_container_width=True, caption="Confusion Matrix of KNN Classifier")
+with img4:
+    st.image(Image.open("graphs/topSpeedvslaptime_class.png"), use_container_width=True, caption="Top Speed vs Lap Time")
+
+st.subheader("Lap Time Trends")
+st.image(Image.open("graphs/Lap_Time_trend1.png"), use_container_width=True, caption="Lap time trends by class")
+
+
+st.subheader("Min and Max Lap Times")
+st.image(Image.open("graphs/min_max.png"), use_container_width=True, caption="Min and Max Lap times by class and circuit")
