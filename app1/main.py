@@ -33,10 +33,10 @@ expected_columns = [
 
 
 # Load encoders with relative paths
-with open("manufacturer_target_encoding.pkl", "rb") as f:
+with open("app1/manufacturer_target_encoding.pkl", "rb") as f:
     manufacturer_target_encoding = pickle.load(f)
 
-with open("team_no_target_encoding.pkl", "rb") as f:
+with open("app1/team_no_target_encoding.pkl", "rb") as f:
     team_no_target_encoding = pickle.load(f)
 
 
@@ -140,15 +140,15 @@ st.title("Data Visualization from Dataset")
 st.subheader("Dataset Insights")
 img1, img2 = st.columns(2)
 with img1:
-    st.image(Image.open("C:/Users/joeva/Documents/PY_DS/ML_projects/Race/main/graphs/regression_heatmap.png"), use_container_width=True, caption="Heatmap")
+    st.image(Image.open("graphs/regression_heatmap.png"), use_container_width=True, caption="Heatmap")
 with img2:
-    st.image(Image.open("C:/Users/joeva/Documents/PY_DS/ML_projects/Race/main/graphs/regression_line.png"), use_container_width=True, caption="Regression Line")
+    st.image(Image.open("graphs/regression_line.png"), use_container_width=True, caption="Regression Line")
 
 img3, img4 = st.columns(2)
 with img3:
-    st.image(Image.open("C:/Users/joeva/Documents/PY_DS/ML_projects/Race/main/graphs/pitVSlap.png"), use_container_width=True, caption="Pit Time vs Lap Time")
+    st.image(Image.open("graphs/pitVSlap.png"), use_container_width=True, caption="Pit Time vs Lap Time")
 with img4:
-    st.image(Image.open("C:/Users/joeva/Documents/PY_DS/ML_projects/Race/main/graphs/topSpeedvslaptime.png"), use_container_width=True, caption="Top Speed vs Lap Time")
+    st.image(Image.open("graphs/topSpeedvslaptime.png"), use_container_width=True, caption="Top Speed vs Lap Time")
 
 st.subheader("Min and Max Lap Times")
-st.image(Image.open("C:/Users/joeva/Documents/PY_DS/ML_projects/Race/main/graphs/min_max.png"), use_container_width=True, caption="Min and Max Lap times by class and circuit")
+st.image(Image.open("graphs/min_max.png"), use_container_width=True, caption="Min and Max Lap times by class and circuit")
