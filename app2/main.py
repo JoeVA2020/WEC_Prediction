@@ -26,10 +26,10 @@ expected_columns = [
 ] + [f'circuit_{col}' for col in circuit_columns] + [f'manufacturer_{col}' for col in manufacturer_columns] + ['manufacturer_encoded', 'team_encoded']
 
 # Load encoders
-with open("team_encoder.pkl", "rb") as f:
+with open("app2/team_encoder.pkl", "rb") as f:
     team_enc = pickle.load(f)
 
-with open("manufacturer_encoder.pkl", "rb") as f:
+with open("app2/manufacturer_encoder.pkl", "rb") as f:
     manufacturer_enc = pickle.load(f)
 
 # --- Streamlit UI ---
