@@ -5,6 +5,12 @@ import re
 import pickle
 from PIL import Image
 from joblib import load
+import os
+
+
+st.write("Current working directory:", os.getcwd())
+st.write("Files in cwd:", os.listdir("app1"))
+
 
 # --- Constants ---
 class_order = ['LMP1-H', 'LMP1-L', 'LMP1', 'HYPERCAR', 'LMP2', 'INNOVATIVE CAR', 'LMGTE Pro', 'LMGTE Am', 'CDNT']
@@ -26,11 +32,12 @@ expected_columns = [
 ] + [f'circuit_{col}' for col in circuit_columns] + [f'manufacturer_{col}' for col in manufacturer_columns] + ['manufacturer', 'team_no', 'class']
 
 # Load encoders
-with open("manufacturer_target_encoding.pkl", "rb") as f:
+with open("app1/manufacturer_target_encoding.pkl", "rb") as f:
     manufacturer_target_encoding = pickle.load(f)
 
-with open("team_no_target_encoding.pkl", "rb") as f:
+with open("app1/team_no_target_encoding.pkl", "rb") as f:
     team_no_target_encoding = pickle.load(f)
+
 
 # --- Streamlit UI ---
 st.title("Lap Time Prediction Input Form")
