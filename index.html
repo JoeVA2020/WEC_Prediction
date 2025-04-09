@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FIA WEC Prediction</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial Black', sans-serif;
+      background-image:url(https://wallpapercave.com/wp/wp12148698.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: #000;
+      height:50vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+      text-shadow: 2px 2px 4px #000;
+      margin-top: 4rem;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .button {
+      background-color: #f0c200;
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease;
+      margin-top: 6rem;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+      color: #000;
+    }
+
+    .divider {
+      height: 160px;
+      width: 4px;
+      background: repeating-linear-gradient(
+        to bottom,
+        yellow,
+        yellow 10px,
+        transparent 10px,
+        transparent 20px
+      );
+    }
+  </style>
+</head>
+<body>
+  <h1>FIA WEC Car Class / Lap Time prediction</h1>
+  <div class="button-container">
+    <button class="button">LAP TIME <a href="https://learningfest-ni3ddw9cedkvbhuw8nvabg.streamlit.app/"></a></button>
+    <div class="divider"></div>
+    <button class="button">CAR CLASS <a href="https://wecprediction-jrls2ikj3yjf4pakvnvytf.streamlit.app/"></a></button>
+  </div>
+</body>
+</html>
