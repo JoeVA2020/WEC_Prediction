@@ -1,9 +1,7 @@
 streamlit
 pandas
 numpy
-scikit-learn
-Pillow
+pillow
 joblib
-pickle
-re
 category_encoders
+scikit-learn
