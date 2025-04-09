@@ -93,13 +93,13 @@ if st.button("Run Classification"):
     }
     
 
-    scaler = load("minmax_scaler.pkl")
+    scaler = load("app2/minmax_scaler.pkl")
     encoded_df = pd.DataFrame([final_input])[expected_columns]
     scaled_df = pd.DataFrame(scaler.transform(encoded_df), columns=expected_columns)
 
 
     # Load model and predict
-    model = load("RandomForestClassifier.pkl")
+    model = load("app2.RandomForestClassifier.pkl")
     pred_class = model.predict(scaled_df)
     print(pred_class)
     # Show result
