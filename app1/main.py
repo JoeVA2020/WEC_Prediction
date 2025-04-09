@@ -112,7 +112,7 @@ if st.button("Run Prediction"):
     }
 
     encoded_df = pd.DataFrame([final_input])[expected_columns]
-    model = load("Lap_Time_Prediction.pkl")
+    model = load("app1/Lap_Time_Prediction.pkl")
     pred = model.predict(encoded_df)
 
     # Format the predicted time
