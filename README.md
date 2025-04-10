@@ -1,5 +1,6 @@
 # 📊 FIA WEC Lap Data Projects
-
+## Checkout my deployed project here :
+  **Click** ==> https://joeva2020.github.io/WEC_Prediction/
 ## 🎯 Project Objectives
 
 This repository contains **two machine learning projects** based on the [FIA WEC Lap Data (2012–2022)](https://www.kaggle.com/datasets/tristenterracciano/fia-wec-lap-data-20122022) dataset. Each project explores a different task:
