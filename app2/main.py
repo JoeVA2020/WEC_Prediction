@@ -127,6 +127,19 @@ if st.button("Run Classification"):
     st.subheader("🏁 Predicted Car Class")
     st.success(f"{pred_class}")
 
+    # Optional: Link to test with real FIA WEC data
+st.markdown(
+    """
+    <a href="https://your-site-url.com" target="_blank">
+        <button style='font-size:16px; padding:10px 20px; margin-top: 10px; border-radius:8px; background-color:#007bff; color:white; border:none;'>
+            🚀 Test with Real FIA WEC Data
+        </button>
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+
+
 # --- Visualization in Sidebar ---
 with st.sidebar:
     st.header("📊 Visual Insights")
