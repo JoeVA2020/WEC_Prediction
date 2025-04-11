@@ -19,7 +19,6 @@ manufacturer_columns = [
     'ligier', 'lola', 'morgan', 'nissan', 'norma', 'oak', 'oreca', 'porsche', 'rebellion',
     'riley', 'srt', 'strakka', 'toyota', 'zytek'
 ]
-
 expected_columns = [
     'car_number', 'driver_number', 'lap_number', 'kph', 'top_speed', 'round',
     'lap_time_s', 'driver_stint_no', 'team_stint_no', 'position', 'season_start'
@@ -40,43 +39,45 @@ col1, col2 = st.columns(2)
 with col1:
     car_number = st.number_input("Car Number", min_value=1, step=1)
     st.caption("Unique identifier for each car.")
+    
+    kph = st.number_input("Average Speed (kph)", min_value=100.0,step=5)
+    st.caption("Average speed of the car during the lap (in kilometers per hour).")
 
-    driver_number = st.number_input("Driver Number", min_value=1, step=1)
-    st.caption("Number assigned to the driver participating in the race.")
+    driver_stint_no = st.number_input("Driver Stint Number", min_value=1, max_value=15, step=1)
+    st.caption("The stint (continuous driving period) this driver is currently on.")
 
     lap_number = st.number_input("Lap Number", min_value=1, max_value=400, step=1)
     st.caption("The lap of the race this data corresponds to.")
 
-    kph = st.number_input("Average Speed (kph)", min_value=100.0)
-    st.caption("Average speed of the car during the lap (in kilometers per hour).")
-
-    driver_stint_no = st.number_input("Driver Stint Number", min_value=1, max_value=10, step=1)
-    st.caption("The stint (continuous driving period) this driver is currently on.")
-
-    position = st.number_input("Position", min_value=1, step=1)
+    position = st.number_input("Position", min_value=1, step=1,max_value=60 )
     st.caption("The car’s current position in the race.")
 
     circuit = st.selectbox("Circuit", options=sorted(set(c.replace('_', ' ').title() for c in circuit_columns)))
     st.caption("The race track where the lap was recorded.")
+    
+    manufacturer = st.selectbox("Manufacturer", options=sorted(set(m.replace('_', ' ').title() for m in manufacturer_columns)))
+    st.caption("The car’s manufacturer or constructor.")
 
 with col2:
-    top_speed = st.number_input("Top Speed (kph)", min_value=100.0)
+    driver_number = st.number_input("Driver Number", min_value=1, step=1)
+    st.caption("Number assigned to the driver participating in the race.")
+    
+    top_speed = st.number_input("Top Speed (kph)", min_value=100.0,max_value=400, step=10)
     st.caption("Maximum speed reached by the car during the lap.")
 
     team_stint_no = st.number_input("Team Stint Number", min_value=1, step=1)
     st.caption("Team’s continuous driving period (can include driver swaps).")
 
+    round_no = st.number_input("Round", min_value=1, max_value=12, step=1)
+    st.caption("Round number within the racing season.")
+    
     season_start = st.number_input("Season Start Year", min_value=2012, max_value=2030, step=1)
     st.caption("Year when the racing season started.")
 
     lap_time = st.number_input("Lap Time (seconds)", min_value=60.000)
     st.caption("The total time it took to complete the lap (in seconds).")
 
-    round_no = st.number_input("Round", min_value=1, max_value=12, step=1)
-    st.caption("Round number within the racing season.")
-
-    manufacturer = st.selectbox("Manufacturer", options=sorted(set(m.replace('_', ' ').title() for m in manufacturer_columns)))
-    st.caption("The car’s manufacturer or constructor.")
+    
 
 
 # --- Prediction ---
