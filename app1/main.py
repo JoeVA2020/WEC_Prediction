@@ -33,7 +33,22 @@ with open("app1/manufacturer_target_encoding.pkl", "rb") as f:
 with open("app1/team_no_target_encoding.pkl", "rb") as f:
     team_no_target_encoding = pickle.load(f)
 
+def set_bg(image_file):
+    with open(image_file, "rb") as img_file:
+        encoded = base64.b64encode(img_file.read()).decode()
+    page_bg_img = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/jpg;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }}
+    </style>
+    """
+    st.markdown(page_bg_img, unsafe_allow_html=True)
 
+set_bg("bg.jpg")  # Make sure the image is in the same folder
 
 # --- Streamlit UI ---
 st.title("Lap Time Prediction Input Form")
