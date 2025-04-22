@@ -30,7 +30,7 @@ expected_columns = [
 with open("app1/manufacturer_target_encoding.pkl", "rb") as f:
     manufacturer_target_encoding = pickle.load(f)
 
-with open("team_no_target_encoding.pkl", "rb") as f:
+with open("app1/team_no_target_encoding.pkl", "rb") as f:
     team_no_target_encoding = pickle.load(f)
 
 
