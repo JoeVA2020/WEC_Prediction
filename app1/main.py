@@ -27,11 +27,12 @@ expected_columns = [
 
 
 # Load encoders with relative paths
-with open("app1/manufacturer_target_encoding.pkl", "rb") as f:
+with open("manufacturer_target_encoding.pkl", "rb") as f:
     manufacturer_target_encoding = pickle.load(f)
 
-with open("app1/team_no_target_encoding.pkl", "rb") as f:
+with open("team_no_target_encoding.pkl", "rb") as f:
     team_no_target_encoding = pickle.load(f)
+
 
 
 # --- Streamlit UI ---
@@ -41,20 +42,45 @@ st.title("Lap Time Prediction Input Form")
 col1, col2 = st.columns(2)
 with col1:
     driver_number = st.number_input("Driver Number", min_value=1, step=1)
+    st.caption("Unique number assigned to each driver in the race.")
+
     lap_number = st.number_input("Lap Number", min_value=1, step=1)
+    st.caption("The current lap number this data refers to.")
+
     kph = st.number_input("Average Speed (kph)", min_value=0.0)
+    st.caption("Average speed of the car during this lap in kilometers per hour.")
+
     pit_time = st.number_input("Pit Time (seconds)", min_value=0.0)
+    st.caption("Total time spent in the pit during this lap, in seconds.")
+
     driver_stint_no = st.number_input("Driver Stint Number", min_value=0, step=1)
+    st.caption("Which stint this is for the current driver (a stint is a period between pit stops).")
+
     position = st.number_input("Position", min_value=1, step=1)
+    st.caption("The car's overall position in the race during this lap.")
 
 with col2:
     top_speed = st.number_input("Top Speed (kph)", min_value=0.0)
+    st.caption("Maximum speed reached by the car during this lap in kilometers per hour.")
+
     team_stint_no = st.number_input("Team Stint Number", min_value=0, step=1)
+    st.caption("Team-level stint number, across all drivers for the team.")
+
     class_position = st.number_input("Class Position", min_value=1, step=1)
+    st.caption("The car's position within its own class/category (e.g., LMP2, GTE Am).")
+
     season_start = st.number_input("Season Start Year", min_value=2012, max_value=2030, step=1)
+    st.caption("The year when the racing season started.")
+
     car_class = st.selectbox("Car Class", options=class_order)
+    st.caption("The class of the car, indicating its technical category.")
+
     manufacturer = st.selectbox("Manufacturer", options=sorted(set(m.replace('_', ' ').title() for m in manufacturer_columns)))
+    st.caption("The car's manufacturing brand (e.g., Toyota, Ferrari).")
+
     circuit = st.selectbox("Circuit", options=sorted(set(c.replace('_', ' ').title() for c in circuit_columns)))
+    st.caption("The race track where this lap took place.")
+
 
 if st.button("Submit"):
     raw_data = {
@@ -111,7 +137,7 @@ if st.button("Run Prediction"):
     }
 
     encoded_df = pd.DataFrame([final_input])[expected_columns]
-    model = load("app1/Lap_Time_Prediction.pkl")
+    model = load("Lap_Time_Prediction.pkl")
     pred = model.predict(encoded_df)
 
     # Format the predicted time
@@ -125,23 +151,35 @@ if st.button("Run Prediction"):
     st.subheader("🕒 Predicted Lap Time")
     st.success(f"{formatted_time} (mm:ss:SSS)")
 
+# --- Sidebar Visualizations ---
+with st.sidebar:
+    st.title("📊 Data Visualizations")
+    
+    st.subheader("Dataset Insights")
+    st.image(
+        Image.open("graphs/regression_heatmap.png"),
+        use_container_width=True,
+        caption="Heatmap"
+    )
+    st.image(
+        Image.open("graphs/regression_line.png"),
+        use_container_width=True,
+        caption="Regression Line"
+    )
+    st.image(
+        Image.open("graphs/regression_heatmap.png"),
+        use_container_width=True,
+        caption="Pit Time vs Lap Time"
+    )
+    st.image(
+        Image.open("graphs/topSpeedvslaptime.png"),
+        use_container_width=True,
+        caption="Top Speed vs Lap Time"
+    )
 
-
-# --- Visualization ---
-st.title("Data Visualization from Dataset")
-
-st.subheader("Dataset Insights")
-img1, img2 = st.columns(2)
-with img1:
-    st.image(Image.open("graphs/regression_heatmap.png"), use_container_width=True, caption="Heatmap")
-with img2:
-    st.image(Image.open("graphs/regression_line.png"), use_container_width=True, caption="Regression Line")
-
-img3, img4 = st.columns(2)
-with img3:
-    st.image(Image.open("graphs/pitVSlap.png"), use_container_width=True, caption="Pit Time vs Lap Time")
-with img4:
-    st.image(Image.open("graphs/topSpeedvslaptime.png"), use_container_width=True, caption="Top Speed vs Lap Time")
-
-st.subheader("Min and Max Lap Times")
-st.image(Image.open("graphs/min_max.png"), use_container_width=True, caption="Min and Max Lap times by class and circuit")
+    st.subheader("Min and Max Lap Times")
+    st.image(
+        Image.open("graphs/min_max.png"),
+        use_container_width=True,
+        caption="Min and Max Lap times"
+    )
