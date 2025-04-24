@@ -7,7 +7,7 @@ This repository contains **two machine learning projects** based on the [FIA WEC
 
 ---
 
-### 📐 1. Lap Time Prediction (Regression)
+### 📐 1. Lap Time Prediction (Regression) / App 1
 
 **Objective:**  
 Build regression models to predict lap times using contextual and categorical features such as driver, team, track, car number, etc.
@@ -38,7 +38,7 @@ Build regression models to predict lap times using contextual and categorical fe
 
 ---
 
-### 🏁 2. Racecar Class Prediction (Classification)
+### 🏁 2. Racecar Class Prediction (Classification) / App2
 
 **Objective:**  
 Predict the class (e.g., LMP1, LMP2, GTE Pro, GTE Am) of a racecar using features from the same dataset.
