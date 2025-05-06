@@ -13,7 +13,7 @@ def set_bg(image_file):
     page_bg_img = f"""
     <style>
     .stApp {{
-        background-image: url("graph/bg.jpg;base64,{encoded}");
+        background-image: url("data:image/jpg;base64,{encoded}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
