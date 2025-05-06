@@ -5,6 +5,24 @@ import re
 import pickle
 from PIL import Image
 from joblib import load
+import base64
+
+def set_bg(image_file):
+    with open(image_file, "rb") as img_file:
+        encoded = base64.b64encode(img_file.read()).decode()
+    page_bg_img = f"""
+    <style>
+    .stApp {{
+        background-image: url("graph/bg.jpg;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }}
+    </style>
+    """
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
+set_bg("bg.jpg")
 
 # --- Constants ---
 class_order = ['LMP1-H', 'LMP1-L', 'LMP1', 'HYPERCAR', 'LMP2', 'INNOVATIVE CAR', 'LMGTE Pro', 'LMGTE Am', 'CDNT']
@@ -167,7 +185,7 @@ with st.sidebar:
         caption="Regression Line"
     )
     st.image(
-        Image.open("graphs/regression_heatmap.png"),
+        Image.open("graphs/pitVSlap.png"),
         use_container_width=True,
         caption="Pit Time vs Lap Time"
     )
