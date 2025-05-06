@@ -59,23 +59,23 @@ with col1:
     lap_number = st.number_input("Lap Number", min_value=1, step=1)
     st.caption("The current lap number this data refers to.")
 
-    kph = st.number_input("Average Speed (kph)", min_value=0.0)
+    kph = st.number_input("Average Speed (kph)", min_value=100.0)
     st.caption("Average speed of the car during this lap in kilometers per hour.")
 
     pit_time = st.number_input("Pit Time (seconds)", min_value=0.0)
     st.caption("Total time spent in the pit during this lap, in seconds.")
 
-    driver_stint_no = st.number_input("Driver Stint Number", min_value=0, step=1)
+    driver_stint_no = st.number_input("Driver Stint Number", min_value=1, step=1)
     st.caption("Which stint this is for the current driver (a stint is a period between pit stops).")
 
     position = st.number_input("Position", min_value=1, step=1)
     st.caption("The car's overall position in the race during this lap.")
 
 with col2:
-    top_speed = st.number_input("Top Speed (kph)", min_value=0.0)
+    top_speed = st.number_input("Top Speed (kph)", min_value=100.0)
     st.caption("Maximum speed reached by the car during this lap in kilometers per hour.")
 
-    team_stint_no = st.number_input("Team Stint Number", min_value=0, step=1)
+    team_stint_no = st.number_input("Team Stint Number", min_value=1, step=1)
     st.caption("Team-level stint number, across all drivers for the team.")
 
     season_start = st.number_input("Season Start Year", min_value=2012, max_value=2030, step=1)
