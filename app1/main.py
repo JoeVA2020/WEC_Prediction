@@ -39,29 +39,22 @@ manufacturer_columns = [
 ]
 
 expected_columns = [
-    'driver_number', 'lap_number', 'kph', 'top_speed', 'pit_time',
-    'driver_stint_no', 'team_stint_no', 'position', 'class_position', 'season_start'
+    'lap_number', 'kph', 'top_speed', 'pit_time',
+    'driver_stint_no', 'team_stint_no', 'position', 'season_start'
 ] + [f'circuit_{col}' for col in circuit_columns] + [f'manufacturer_{col}' for col in manufacturer_columns] + ['manufacturer', 'team_no', 'class']
 
-
-# Load encoders with relative paths
+# Load encoders
 with open("app1/manufacturer_target_encoding.pkl", "rb") as f:
     manufacturer_target_encoding = pickle.load(f)
 
 with open("app1/team_no_target_encoding.pkl", "rb") as f:
     team_no_target_encoding = pickle.load(f)
 
-
-
 # --- Streamlit UI ---
 st.title("Lap Time Prediction Input Form")
 
-# Input layout in columns
 col1, col2 = st.columns(2)
 with col1:
-    driver_number = st.number_input("Driver Number", min_value=1, step=1)
-    st.caption("Unique number assigned to each driver in the race.")
-
     lap_number = st.number_input("Lap Number", min_value=1, step=1)
     st.caption("The current lap number this data refers to.")
 
@@ -72,7 +65,7 @@ with col1:
     st.caption("Total time spent in the pit during this lap, in seconds.")
 
     driver_stint_no = st.number_input("Driver Stint Number", min_value=0, step=1)
-    st.caption("Which stint this is for the current driver (a stint is a period between pit stops).")
+    st.caption("Which stint this is for the current driver.")
 
     position = st.number_input("Position", min_value=1, step=1)
     st.caption("The car's overall position in the race during this lap.")
@@ -82,27 +75,22 @@ with col2:
     st.caption("Maximum speed reached by the car during this lap in kilometers per hour.")
 
     team_stint_no = st.number_input("Team Stint Number", min_value=0, step=1)
-    st.caption("Team-level stint number, across all drivers for the team.")
-
-    class_position = st.number_input("Class Position", min_value=1, step=1)
-    st.caption("The car's position within its own class/category (e.g., LMP2, GTE Am).")
+    st.caption("Team-level stint number.")
 
     season_start = st.number_input("Season Start Year", min_value=2012, max_value=2030, step=1)
     st.caption("The year when the racing season started.")
 
     car_class = st.selectbox("Car Class", options=class_order)
-    st.caption("The class of the car, indicating its technical category.")
+    st.caption("The class of the car.")
 
     manufacturer = st.selectbox("Manufacturer", options=sorted(set(m.replace('_', ' ').title() for m in manufacturer_columns)))
-    st.caption("The car's manufacturing brand (e.g., Toyota, Ferrari).")
+    st.caption("The car's manufacturing brand.")
 
     circuit = st.selectbox("Circuit", options=sorted(set(c.replace('_', ' ').title() for c in circuit_columns)))
-    st.caption("The race track where this lap took place.")
-
+    st.caption("The race track.")
 
 if st.button("Submit"):
     raw_data = {
-        'driver_number': [driver_number],
         'lap_number': [lap_number],
         'kph': [kph],
         'top_speed': [top_speed],
@@ -110,15 +98,13 @@ if st.button("Submit"):
         'driver_stint_no': [driver_stint_no],
         'team_stint_no': [team_stint_no],
         'position': [position],
-        'class_position': [class_position],
         'season_start': [season_start],
         'class': [car_class],
         'manufacturer': [manufacturer],
         'circuit': [circuit]
     }
-    raw_df = pd.DataFrame(raw_data)
     st.subheader("📥 Raw Input Data")
-    st.write(raw_df)
+    st.write(pd.DataFrame(raw_data))
 
 if st.button("Run Prediction"):
     circuit_clean = re.sub(r'\d+', '', circuit.lower().replace(' ', '_'))
@@ -137,7 +123,6 @@ if st.button("Run Prediction"):
     team_no_encoded = team_no_target_encoding.transform(team_df)['team_no'].values[0]
 
     final_input = {
-        'driver_number': driver_number,
         'lap_number': lap_number,
         'kph': kph,
         'top_speed': top_speed,
@@ -145,7 +130,6 @@ if st.button("Run Prediction"):
         'driver_stint_no': driver_stint_no,
         'team_stint_no': team_stint_no,
         'position': position,
-        'class_position': class_position,
         'season_start': season_start,
         'class': class_encoded,
         'manufacturer': manufacturer_encoded,
@@ -158,46 +142,20 @@ if st.button("Run Prediction"):
     model = load("app1/Lap_Time_Prediction.pkl")
     pred = model.predict(encoded_df)
 
-    # Format the predicted time
-    predicted_seconds = pred
-    minutes = int(predicted_seconds // 60)
-    seconds = int(predicted_seconds % 60)
-    milliseconds = int((predicted_seconds - int(predicted_seconds)) * 1000)
+    minutes = int(pred // 60)
+    seconds = int(pred % 60)
+    milliseconds = int((pred - int(pred)) * 1000)
     formatted_time = f"{minutes:02}:{seconds:02}:{milliseconds:03}"
 
-    # Show result
     st.subheader("🕒 Predicted Lap Time")
     st.success(f"{formatted_time} (mm:ss:SSS)")
 
-# --- Sidebar Visualizations ---
 with st.sidebar:
     st.title("📊 Data Visualizations")
-    
     st.subheader("Dataset Insights")
-    st.image(
-        Image.open("graphs/regression_heatmap.png"),
-        use_container_width=True,
-        caption="Heatmap"
-    )
-    st.image(
-        Image.open("graphs/regression_line.png"),
-        use_container_width=True,
-        caption="Regression Line"
-    )
-    st.image(
-        Image.open("graphs/pitVSlap.png"),
-        use_container_width=True,
-        caption="Pit Time vs Lap Time"
-    )
-    st.image(
-        Image.open("graphs/topSpeedvslaptime.png"),
-        use_container_width=True,
-        caption="Top Speed vs Lap Time"
-    )
-
+    st.image(Image.open("graphs/regression_heatmap.png"), use_container_width=True, caption="Heatmap")
+    st.image(Image.open("graphs/regression_line.png"), use_container_width=True, caption="Regression Line")
+    st.image(Image.open("graphs/pitVSlap.png"), use_container_width=True, caption="Pit Time vs Lap Time")
+    st.image(Image.open("graphs/topSpeedvslaptime.png"), use_container_width=True, caption="Top Speed vs Lap Time")
     st.subheader("Min and Max Lap Times")
-    st.image(
-        Image.open("graphs/min_max.png"),
-        use_container_width=True,
-        caption="Min and Max Lap times"
-    )
+    st.image(Image.open("graphs/min_max.png"), use_container_width=True, caption="Min and Max Lap times")
