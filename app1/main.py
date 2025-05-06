@@ -22,7 +22,7 @@ def set_bg(image_file):
     """
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
-set_bg("graphs/bg.jpg")
+set_bg("app1/bg.jpg")
 
 # --- Constants ---
 class_order = ['LMP1-H', 'LMP1-L', 'LMP1', 'HYPERCAR', 'LMP2', 'INNOVATIVE CAR', 'LMGTE Pro', 'LMGTE Am', 'CDNT']
